@@ -1,0 +1,11 @@
+name: msml_breast_cancer_project
+
+conda_env: conda.yaml
+
+entry_points:
+  main:
+    parameters:
+      data_path: {type: str, default: "breast_cancer_preprocessing.csv"}
+      n_estimators: {type: int, default: 100}
+      max_depth: {type: str, default: "None"}
+    command: "python modelling.py --data_path {data_path} --n_estimators {n_estimators} --max_depth {max_depth}"

@@ -1,0 +1,29 @@
+name: Retrain Model
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - name: Install MLflow
+        run: pip install mlflow==2.19.0 virtualenv
+      - name: Run MLProject
+        run: |
+          cd MLProject
+          mlflow run . --env-manager=local
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: mlruns
+          path: mlruns/
